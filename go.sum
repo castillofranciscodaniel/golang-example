@@ -7,6 +7,10 @@ bitbucket.org/chattigodev/chattigo-golang-kafka-library v1.0.3/go.mod h1:TNXVK/Z
 bitbucket.org/chattigodev/chattigo-golang-library v1.5.3/go.mod h1:d60s3b6QB2J1xrpDfeORQOvbgL7qsXKCyXcuhZdrTM8=
 bitbucket.org/chattigodev/chattigo-golang-library v1.5.4-0.20211031233607-9caf8a93c0c8 h1:XlQ+MYuARl2wXASaGtGcXLwvN85/wZIMsrhgpNBGog0=
 bitbucket.org/chattigodev/chattigo-golang-library v1.5.4-0.20211031233607-9caf8a93c0c8/go.mod h1:d60s3b6QB2J1xrpDfeORQOvbgL7qsXKCyXcuhZdrTM8=
+bitbucket.org/chattigodev/chattigo-golang-library v1.5.4-0.20211101175200-2c9941ac28d4 h1:sre5pdRgJynLsgNoKLkk+gJBu7Ng/ke6V8qvQMGbVIc=
+bitbucket.org/chattigodev/chattigo-golang-library v1.5.4-0.20211101175200-2c9941ac28d4/go.mod h1:d60s3b6QB2J1xrpDfeORQOvbgL7qsXKCyXcuhZdrTM8=
+bitbucket.org/chattigodev/chattigo-golang-library v1.5.4-0.20211101210021-a59fce7920d8 h1:cnbko3sVmMu3Q7F82uY37qzLUR4BfdQUGlVyuTs06/c=
+bitbucket.org/chattigodev/chattigo-golang-library v1.5.4-0.20211101210021-a59fce7920d8/go.mod h1:JnWisXsv5Gz91qMXi3FyK7mwHf9VfYpgpmBsVTP39Fk=
 bitbucket.org/chattigodev/chattigo-golang-redis-library v1.0.1 h1:KAytvWPf0bI6m+ETWUHPtOmmZCdU/XWUXJbV+fRpxP8=
 bitbucket.org/chattigodev/chattigo-golang-redis-library v1.0.1/go.mod h1:Q/Ir7KUw3ivISeVzksbo+4gvOWXDaG5fOfJFSEFQuyU=
 bitbucket.org/chattigodev/chattigo-golang-security-library v1.1.0 h1:A3yMsj+8kpod1/so5t8y4ydqQ6xjAujqYZr+fUqx7ew=
@@ -260,6 +264,8 @@ github.com/ianlancetaylor/demangle v0.0.0-20181102032728-5e5cf60278f6/go.mod h1:
 github.com/ianlancetaylor/demangle v0.0.0-20200824232613-28f6c0f3b639/go.mod h1:aSSvb/t6k1mPoxDqO4vJh6VOCGPwU4O0C2/Eqndh1Sc=
 github.com/jonboulle/clockwork v0.1.0/go.mod h1:Ii8DK3G1RaLaWxj9trq07+26W01tbo22gdxWY5EU2bo=
 github.com/json-iterator/go v1.1.11/go.mod h1:KdQUCv79m/52Kvf8AW2vK1V8akMuk1QjK/uOdHXbAo4=
+github.com/json-iterator/go v1.1.12 h1:PV8peI4a0ysnczrg+LtxykD8LfKY9ML6u2jnxaEnrnM=
+github.com/json-iterator/go v1.1.12/go.mod h1:e30LSqwooZae/UwlEbR2852Gd8hjQvJoHmT4TnhNGBo=
 github.com/jstemmer/go-junit-report v0.0.0-20190106144839-af01ea7f8024/go.mod h1:6v2b51hI/fHJwM22ozAgKL4VKDeJcHhJFhtBdhmNjmU=
 github.com/jstemmer/go-junit-report v0.9.1/go.mod h1:Brl9GWCQeLvo8nXZwPNNblvFj/XSXhF0NWZEnDohbsk=
 github.com/jtolds/gls v4.20.0+incompatible/go.mod h1:QJZ7F/aHp+rZTRtaJ1ow/lLfFfVYBRgL+9YlvaHOwJU=
@@ -303,9 +309,12 @@ github.com/mitchellh/mapstructure v1.1.2/go.mod h1:FVVH3fgwuzCH5S8UJGiWEs2h04kUh
 github.com/mitchellh/mapstructure v1.4.1/go.mod h1:bFUtVrKA4DC2yAKiSyO/QUcy7e+RRV2QTWOzhPopBRo=
 github.com/mitchellh/mapstructure v1.4.2 h1:6h7AQ0yhTcIsmFmnAwQls75jp2Gzs4iB8W7pjMO+rqo=
 github.com/mitchellh/mapstructure v1.4.2/go.mod h1:bFUtVrKA4DC2yAKiSyO/QUcy7e+RRV2QTWOzhPopBRo=
+github.com/modern-go/concurrent v0.0.0-20180228061459-e0a39a4cb421 h1:ZqeYNhU3OHLH3mGKHDcjJRFFRrJa6eAM5H+CtDdOsPc=
 github.com/modern-go/concurrent v0.0.0-20180228061459-e0a39a4cb421/go.mod h1:6dJC0mAP4ikYIbvyc7fijjWJddQyLn8Ig3JB5CqoB9Q=
 github.com/modern-go/reflect2 v0.0.0-20180701023420-4b7aa43c6742/go.mod h1:bx2lNnkwVCuqBIxFjflWJWanXIb3RllmbCylyMrvgv0=
 github.com/modern-go/reflect2 v1.0.1/go.mod h1:bx2lNnkwVCuqBIxFjflWJWanXIb3RllmbCylyMrvgv0=
+github.com/modern-go/reflect2 v1.0.2 h1:xBagoLtFs94CBntxluKeaWgTMpvLxC4ur3nMaC9Gz0M=
+github.com/modern-go/reflect2 v1.0.2/go.mod h1:yWuevngMOJpCy52FWWMvUC8ws7m/LJsjYzDa0/r8luk=
 github.com/mwitkow/go-conntrack v0.0.0-20161129095857-cc309e4a2223/go.mod h1:qRWi+5nqEBWmkhHvq77mSJWrCKwh8bxhgT7d/eI7P4U=
 github.com/nxadm/tail v1.4.4/go.mod h1:kenIhsEOeOJmVchQTgglprH7qJGnHDVpk1VPCcaMI8A=
 github.com/nxadm/tail v1.4.8 h1:nPr65rt6Y5JFSKQO7qToXr7pePgD6Gwiw05lkbyAQTE=

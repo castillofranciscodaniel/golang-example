@@ -6,7 +6,7 @@ require (
 	bitbucket.org/chattigodev/chattigo-golang-ig-config-library v1.3.2
 	bitbucket.org/chattigodev/chattigo-golang-ig-core-library v1.4.5
 	bitbucket.org/chattigodev/chattigo-golang-kafka-library v1.0.3
-	bitbucket.org/chattigodev/chattigo-golang-library v1.5.4-0.20211031233607-9caf8a93c0c8
+	bitbucket.org/chattigodev/chattigo-golang-library v1.5.4-0.20211101210021-a59fce7920d8
 	github.com/go-chi/chi v1.5.4
 	github.com/go-chi/chi/v5 v5.0.5
 	github.com/google/wire v0.5.0
@@ -32,9 +32,12 @@ require (
 	github.com/golang-sql/civil v0.0.0-20190719163853-cb61b32ac6fe // indirect
 	github.com/golang/protobuf v1.5.2 // indirect
 	github.com/hashicorp/hcl v1.0.0 // indirect
+	github.com/json-iterator/go v1.1.12 // indirect
 	github.com/magiconair/properties v1.8.5 // indirect
 	github.com/matttproud/golang_protobuf_extensions v1.0.1 // indirect
 	github.com/mitchellh/mapstructure v1.4.2 // indirect
+	github.com/modern-go/concurrent v0.0.0-20180228061459-e0a39a4cb421 // indirect
+	github.com/modern-go/reflect2 v1.0.2 // indirect
 	github.com/pelletier/go-toml v1.9.4 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/prometheus/client_model v0.0.0-20190812154241-14fe0d1b01d4 // indirect

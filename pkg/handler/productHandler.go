@@ -42,7 +42,7 @@ func (p *ProductHandler) HandlerProductByID(w http.ResponseWriter, r *http.Reque
 
 	result := p.deserializerService.BodyToObservable(ctxString, r, &product).FlatMap(func(item rxgo.Item) rxgo.Observable {
 
-		return p.productService.HandlerProductByID(r.Context(), product.Id).FlatMap(func(item rxgo.Item) rxgo.Observable {
+		return p.productService.HandlerProductByID(r.Context(), product).FlatMap(func(item rxgo.Item) rxgo.Observable {
 			if item.Error() {
 				subLogger.Error().Err(item.E).Msgf("[An error from webClient][%v]", utils.EndExceptionStr)
 				return rxgo.Just(item.E)()
