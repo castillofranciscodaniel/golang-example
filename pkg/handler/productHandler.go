@@ -4,7 +4,6 @@ import (
 	service3 "bitbucket.org/chattigodev/chattigo-golang-library/pkg/deserializer"
 	service2 "bitbucket.org/chattigodev/chattigo-golang-library/pkg/serializer"
 	"bitbucket.org/chattigodev/chattigo-golang-library/pkg/utils"
-	"errors"
 	"github.com/castillofranciscodaniel/golang-example/pkg/dto"
 	"github.com/castillofranciscodaniel/golang-example/pkg/service"
 	"github.com/go-chi/chi/v5/middleware"
@@ -56,25 +55,26 @@ func (p *ProductHandler) HandlerProductByID(w http.ResponseWriter, r *http.Reque
 	p.serializerService.ServerResponse(w, result.First(), http.StatusCreated)
 }
 
-func (p *ProductHandler) TestErrorDto(w http.ResponseWriter, r *http.Request) {
+// HandlerProductByID -
+func (p *ProductHandler) HandlerProductByIDPointer(w http.ResponseWriter, r *http.Request) {
 	ctxString := middleware.GetReqID(r.Context())
 	subLogger := p.log.With().Str(utils.Thread, ctxString).Str(utils.Method, "Inbound").Logger()
 	subLogger.Info().Msgf(utils.InitStr)
 
-	//error := error2.ErrorDto{
-	//	StatusCode: 514,
-	//	Msg:        "Status 514",
-	//	TraceDetail: map[string]interface{}{
-	//		"error": "error 1",
-	//	},
-	//}
+	var product dto.Product
 
-	//product := dto.Product{
-	//			Id:    200,
-	//			Name:  "holi",
-	//			Price: 500,
-	//		}
+	result := p.deserializerService.BodyToObservable(ctxString, r, &product).FlatMap(func(item rxgo.Item) rxgo.Observable {
 
-	//p.serializerService.ServerResponse(w, result.First(), http.StatusCreated)
-	p.serializerService.ServerEmptyResponse(w, rxgo.Just(errors.New("sdsdf"))(), http.StatusCreated)
+		return p.productService.HandlerProductByIDPointer(r.Context(), &product).FlatMap(func(item rxgo.Item) rxgo.Observable {
+			if item.Error() {
+				subLogger.Error().Err(item.E).Msgf("[An error from webClient][%v]", utils.EndExceptionStr)
+				return rxgo.Just(item.E)()
+			}
+
+			subLogger.Info().Int("id", product.Id).Msgf("httpRequest OK - %v", utils.EndStr)
+			return rxgo.Just(item.V)()
+		})
+	})
+
+	p.serializerService.ServerResponse(w, result.First(), http.StatusCreated)
 }

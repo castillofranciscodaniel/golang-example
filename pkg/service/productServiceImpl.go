@@ -38,3 +38,18 @@ func (m *ProductServiceIml) HandlerProductByID(ctx context.Context, product dto.
 		return rxgo.Just(item.V)()
 	})
 }
+
+// HandlerProductByIDPointer -
+func (m *ProductServiceIml) HandlerProductByIDPointer(ctx context.Context, product *dto.Product) rxgo.Observable {
+	subLogger := m.log.With().Str(utils.Thread, middleware.GetReqID(ctx)).Str(utils.Method, "GetStateAgentCarer").Logger()
+	subLogger.Info().Msgf(utils.InitStr)
+
+	return m.productClient.GetProductByIDPointer(ctx, product).FlatMap(func(item rxgo.Item) rxgo.Observable {
+		if item.Error() {
+			subLogger.Error().Err(item.E).Msgf("[An error from webClient][%v]", utils.EndExceptionStr)
+			return rxgo.Just(item.E)()
+		}
+
+		return rxgo.Just(item.V)()
+	})
+}

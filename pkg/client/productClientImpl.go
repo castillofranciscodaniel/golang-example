@@ -59,3 +59,24 @@ func (p *ProductClientImpl) GetProductByID(ctx context.Context, product dto.Prod
 	})
 
 }
+
+func (p *ProductClientImpl) GetProductByIDPointer(ctx context.Context, product *dto.Product) rxgo.Observable {
+	ctxString := middleware.GetReqID(ctx)
+	subLogger := p.log.With().Str("ctx", ctxString).Str(utils.Method, "GetProductByID").Logger()
+	subLogger.Info().Msg(utils.InitStr)
+
+	url := fmt.Sprintf("%v/id/2", p.url)
+	subLogger.Info().Str("url", url).Msg(utils.Data)
+
+	var productResponse dto.Product
+	return rxgo.Just(product)().Marshal(json.Marshal).FlatMap(func(item rxgo.Item) rxgo.Observable {
+		if item.Error() {
+			subLogger.Error().Err(item.E).Msg(utils.EndExceptionStr)
+			return rxgo.Just(item.E)()
+		}
+
+		return p.webClient.HTTPDoSimpleReq(ctxString, url, item.V.([]byte), http.GET, &productResponse)
+	})
+
+}
+

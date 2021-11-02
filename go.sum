@@ -11,6 +11,8 @@ bitbucket.org/chattigodev/chattigo-golang-library v1.5.4-0.20211101175200-2c9941
 bitbucket.org/chattigodev/chattigo-golang-library v1.5.4-0.20211101175200-2c9941ac28d4/go.mod h1:d60s3b6QB2J1xrpDfeORQOvbgL7qsXKCyXcuhZdrTM8=
 bitbucket.org/chattigodev/chattigo-golang-library v1.5.4-0.20211101210021-a59fce7920d8 h1:cnbko3sVmMu3Q7F82uY37qzLUR4BfdQUGlVyuTs06/c=
 bitbucket.org/chattigodev/chattigo-golang-library v1.5.4-0.20211101210021-a59fce7920d8/go.mod h1:JnWisXsv5Gz91qMXi3FyK7mwHf9VfYpgpmBsVTP39Fk=
+bitbucket.org/chattigodev/chattigo-golang-library v1.5.4-0.20211101231547-e710f3e5db40 h1:7aDDmxAKYRN5Hl0DeDXavgqbijJNC7A3EYtOxInKuo4=
+bitbucket.org/chattigodev/chattigo-golang-library v1.5.4-0.20211101231547-e710f3e5db40/go.mod h1:JnWisXsv5Gz91qMXi3FyK7mwHf9VfYpgpmBsVTP39Fk=
 bitbucket.org/chattigodev/chattigo-golang-redis-library v1.0.1 h1:KAytvWPf0bI6m+ETWUHPtOmmZCdU/XWUXJbV+fRpxP8=
 bitbucket.org/chattigodev/chattigo-golang-redis-library v1.0.1/go.mod h1:Q/Ir7KUw3ivISeVzksbo+4gvOWXDaG5fOfJFSEFQuyU=
 bitbucket.org/chattigodev/chattigo-golang-security-library v1.1.0 h1:A3yMsj+8kpod1/so5t8y4ydqQ6xjAujqYZr+fUqx7ew=

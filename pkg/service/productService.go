@@ -9,4 +9,6 @@ import (
 // ProductService -
 type ProductService interface {
 	HandlerProductByID(ctx context.Context, product dto.Product) rxgo.Observable
+
+	HandlerProductByIDPointer(ctx context.Context, product *dto.Product) rxgo.Observable
 }

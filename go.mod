@@ -6,8 +6,7 @@ require (
 	bitbucket.org/chattigodev/chattigo-golang-ig-config-library v1.3.2
 	bitbucket.org/chattigodev/chattigo-golang-ig-core-library v1.4.5
 	bitbucket.org/chattigodev/chattigo-golang-kafka-library v1.0.3
-	bitbucket.org/chattigodev/chattigo-golang-library v1.5.4-0.20211101210021-a59fce7920d8
-	github.com/go-chi/chi v1.5.4
+	bitbucket.org/chattigodev/chattigo-golang-library v1.5.4-0.20211101231547-e710f3e5db40
 	github.com/go-chi/chi/v5 v5.0.5
 	github.com/google/wire v0.5.0
 	github.com/prometheus/client_golang v0.9.3
