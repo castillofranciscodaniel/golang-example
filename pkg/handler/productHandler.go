@@ -55,7 +55,7 @@ func (p *ProductHandler) HandlerProductByID(w http.ResponseWriter, r *http.Reque
 	p.serializerService.ServerResponse(w, result.First(), http.StatusCreated)
 }
 
-// HandlerProductByID -
+// HandlerProductByIDPointer -
 func (p *ProductHandler) HandlerProductByIDPointer(w http.ResponseWriter, r *http.Request) {
 	ctxString := middleware.GetReqID(r.Context())
 	subLogger := p.log.With().Str(utils.Thread, ctxString).Str(utils.Method, "Inbound").Logger()
@@ -77,4 +77,23 @@ func (p *ProductHandler) HandlerProductByIDPointer(w http.ResponseWriter, r *htt
 	})
 
 	p.serializerService.ServerResponse(w, result.First(), http.StatusCreated)
+}
+
+// GetProducts -
+func (p *ProductHandler) GetProducts(w http.ResponseWriter, r *http.Request) {
+	ctxString := middleware.GetReqID(r.Context())
+	subLogger := p.log.With().Str(utils.Thread, ctxString).Str(utils.Method, "Inbound").Logger()
+	subLogger.Info().Msgf(utils.InitStr)
+
+	result := p.productService.GetProducts(r.Context()).FlatMap(func(item rxgo.Item) rxgo.Observable {
+		if item.Error() {
+			subLogger.Error().Err(item.E).Msgf("[An error from webClient][%v]", utils.EndExceptionStr)
+			return rxgo.Just(item.E)()
+		}
+
+		subLogger.Info().Msgf("httpRequest OK - %v", utils.EndStr)
+		return rxgo.Just(item.V)()
+	})
+
+	p.serializerService.ServerResponse(w, result, http.StatusCreated)
 }

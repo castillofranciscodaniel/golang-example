@@ -80,3 +80,20 @@ func (p *ProductClientImpl) GetProductByIDPointer(ctx context.Context, product *
 
 }
 
+func (p *ProductClientImpl) GetProducts(ctx context.Context) rxgo.Observable {
+	ctxString := middleware.GetReqID(ctx)
+	subLogger := p.log.With().Str("ctx", ctxString).Str(utils.Method, "GetProductByID").Logger()
+	subLogger.Info().Msg(utils.InitStr)
+
+	subLogger.Info().Str("url", p.url).Msg(utils.Data)
+
+	var productResponse []dto.Product
+	return p.webClient.HTTPDoSimpleReq(ctxString, p.url, nil, http.GET, &productResponse).FlatMap(func(item rxgo.Item) rxgo.Observable {
+		if item.Error() {
+			subLogger.Error().Err(item.E).Msg(utils.EndExceptionStr)
+			return rxgo.Just(item.E)()
+		}
+		return rxgo.Just(item.V)()
+	})
+
+}

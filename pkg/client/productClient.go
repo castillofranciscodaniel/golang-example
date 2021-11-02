@@ -11,4 +11,7 @@ type ProductClient interface {
 	GetProductByID(ctx context.Context, product dto.Product) rxgo.Observable
 
 	GetProductByIDPointer(ctx context.Context, product *dto.Product) rxgo.Observable
+
+
+	GetProducts(ctx context.Context) rxgo.Observable
 }
