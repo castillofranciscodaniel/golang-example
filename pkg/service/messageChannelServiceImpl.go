@@ -72,10 +72,10 @@ func (m *MessageChannelServiceIml) GetMessageChannel(ctx context.Context) rxgo.O
 			subLogger.Error().Err(item.E).Msg(utils.EndExceptionStr)
 			return rxgo.Just(err)()
 		}
-
-		return rxgo.Just(*messageChannel)().FlatMap(func(item rxgo.Item) rxgo.Observable {
-			return rxgo.Just(item.V)()
-		})
+		for _, message := range *messageChannel  {
+			message.Did = "edit did"
+		}
+		return rxgo.Just(messageChannel)()
 	})
 }
 

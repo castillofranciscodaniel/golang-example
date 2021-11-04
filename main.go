@@ -3,6 +3,7 @@ package main
 import (
 	"bitbucket.org/chattigodev/chattigo-golang-library/spring-cloud-config"
 	"encoding/json"
+	"fmt"
 	"github.com/castillofranciscodaniel/golang-example/config"
 	"github.com/castillofranciscodaniel/golang-example/pkg/dto"
 	"github.com/go-chi/chi/v5"
@@ -51,7 +52,10 @@ func Route(container config.ContainerServiceImp) *chi.Mux {
 
 func test() {
 	//messageMarshall()
-	messageRx()
+	//messageRx()
+	nativeError().FlatMap(func(item rxgo.Item) rxgo.Observable {
+		return rxgo.Empty()
+	}).Observe()
 }
 
 func messageMarshall() {
@@ -68,4 +72,29 @@ func messageMarshall() {
 func messageRx() {
 	messageChannel := dto.MessageChannel{}
 	rxgo.Just(messageChannel)().Observe()
+}
+
+type NativeError struct {
+	StatusCode  int                    `json:"statusCode,omitempty"`
+	Msg         string                 `json:"msg,omitempty"`
+	TraceDetail map[string]interface{} `json:"traceDetail,omitempty"`
+}
+
+// Error - implemented from error interface
+func (e *NativeError) Error() string {
+	return fmt.Sprintf("Msg: %v. StatusCode: %v. TraceDetail: %v", e.Msg, e.StatusCode, e.TraceDetail)
+}
+
+func nativeError() rxgo.Observable {
+	err := NativeError{
+		StatusCode: 404,
+		Msg:        "Status Not Found",
+	}
+	return rxgo.Just(&err)().FlatMap(func(item rxgo.Item) rxgo.Observable {
+		if item.Error() {
+			return rxgo.Just(item.E)()
+		}
+
+		return rxgo.Empty()
+	})
 }

@@ -4,7 +4,6 @@ import (
 	"bitbucket.org/chattigodev/chattigo-golang-library/pkg/http"
 	"bitbucket.org/chattigodev/chattigo-golang-library/pkg/utils"
 	"context"
-	"fmt"
 	"github.com/castillofranciscodaniel/golang-example/pkg/dto"
 	"github.com/go-chi/chi/v5/middleware"
 	jsoniter "github.com/json-iterator/go"
@@ -22,15 +21,16 @@ type MessageChannelClientImpl struct {
 
 func NewMessageChannelClientImpl(webClient http.WebClient) MessageChannelClient {
 	return &MessageChannelClientImpl{
-		log:       log.With().Str(utils.Struct, "MessageChannelClientImpl").Logger(),
+		log:       log.With().Str(utils.Struct, messageChannelClientImpl).Logger(),
 		url:       "http://localhost:2000/api/rest/v1/message",
 		webClient: webClient,
 	}
 }
 
 const (
-	getMessageChannel = "GetMessageChannel"
-	saveMessageChannel = "SaveMessageChannel"
+	getMessageChannel        = "GetMessageChannel"
+	saveMessageChannel       = "SaveMessageChannel"
+	messageChannelClientImpl = "MessageChannelClientImpl"
 )
 
 func (m *MessageChannelClientImpl) SaveMessageChannel(ctx context.Context, messageChannel *dto.MessageChannel) rxgo.Observable {
@@ -38,8 +38,7 @@ func (m *MessageChannelClientImpl) SaveMessageChannel(ctx context.Context, messa
 	subLogger := m.log.With().Str("ctx", ctxString).Str(utils.Method, saveMessageChannel).Logger()
 	subLogger.Info().Msg(utils.InitStr)
 
-	url := fmt.Sprintf("%v/id/2", m.url)
-	subLogger.Info().Str("url", url).Msg(utils.Data)
+	subLogger.Info().Str("url", m.url).Msg(utils.Data)
 
 	var response dto.MessageChannel
 	return rxgo.Just(messageChannel)().Marshal(jsoniter.Marshal).FlatMap(func(item rxgo.Item) rxgo.Observable {
@@ -48,7 +47,12 @@ func (m *MessageChannelClientImpl) SaveMessageChannel(ctx context.Context, messa
 			return rxgo.Just(item.E)()
 		}
 
-		return m.webClient.HTTPDoSimpleReq(ctxString, url, item.V.([]byte), http.GET, &response).FlatMap(func(item rxgo.Item) rxgo.Observable {
+		return m.webClient.HTTPDoSimpleReq(ctxString, m.url, item.V.([]byte), http.POST, &response).FlatMap(func(item rxgo.Item) rxgo.Observable {
+			if item.Error() {
+				subLogger.Error().Err(item.E).Msg(utils.EndExceptionStr)
+				return rxgo.Just(item.E)()
+			}
+
 			return rxgo.Just(item.V)()
 		})
 	})
