@@ -36,6 +36,7 @@ func (m *MessageChannelServiceIml) SaveMessageChannel(ctx context.Context, messa
 	subLogger := m.log.With().Str(utils.Thread, middleware.GetReqID(ctx)).Str(utils.Method, "GetStateAgentCarer").Logger()
 	subLogger.Info().Msgf(utils.InitStr)
 
+
 	return m.messageChannelClient.SaveMessageChannel(ctx, messageChannel).FlatMap(func(item rxgo.Item) rxgo.Observable {
 		if item.Error() {
 			subLogger.Error().Err(item.E).Msgf("[An error from webClient][%v]", utils.EndExceptionStr)
@@ -72,8 +73,8 @@ func (m *MessageChannelServiceIml) GetMessageChannel(ctx context.Context) rxgo.O
 			subLogger.Error().Err(item.E).Msg(utils.EndExceptionStr)
 			return rxgo.Just(err)()
 		}
-		for _, message := range *messageChannel  {
-			message.Did = "edit did"
+		for idx, _ := range *messageChannel  {
+			(*(messageChannel))[idx].Did = "edit did"
 		}
 		return rxgo.Just(messageChannel)()
 	})
