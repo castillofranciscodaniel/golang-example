@@ -12,15 +12,15 @@ import (
 
 type HealthHandler struct {
 	log               zerolog.Logger
-	serializerService service2.SerializerService
-	productService    service.ProductService
+	serializerService     service2.SerializerService
+	messageChannelService service.MessageChannelService
 }
 
-func NewHealthHandler(serializerServer service2.SerializerService, productService service.ProductService) HealthHandler {
+func NewHealthHandler(serializerServer service2.SerializerService, messageChannelService service.MessageChannelService) HealthHandler {
 	return HealthHandler{
-		log:              log.With().Str(utils.Struct, "ProductHandler").Logger(),
-		productService:   productService,
-		serializerService: serializerServer,
+		log:                   log.With().Str(utils.Struct, "MessageChannelHandler").Logger(),
+		messageChannelService: messageChannelService,
+		serializerService:     serializerServer,
 	}
 }
 

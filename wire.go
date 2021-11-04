@@ -19,10 +19,10 @@ func InitializeServer() config.ContainerServiceImp {
 		service2.NewSerializerServiceImpl,
 		http.NewWebClientImpl,
 
-		client.NewProductClientImpl,
-		service3.NewProductServiceIml,
+		client.NewMessageChannelClientImpl,
+		service3.NewMessageChannelServiceIml,
 		handler.NewHealthHandler,
-		handler.NewProductHandler,
+		handler.NewMessageChannelHandler,
 
 		config.NewContainerServiceImp,
 	)

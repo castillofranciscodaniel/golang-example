@@ -5,13 +5,13 @@ import (
 )
 
 type ContainerServiceImp struct {
-	HealthHandler  handler.HealthHandler
-	ProductHandler handler.ProductHandler
+	HealthHandler         handler.HealthHandler
+	MessageChannelHandler handler.MessageChannelHandler
 }
 
-func NewContainerServiceImp(healthHandler handler.HealthHandler, productHandler handler.ProductHandler) ContainerServiceImp {
+func NewContainerServiceImp(healthHandler handler.HealthHandler, messageChannelHandler handler.MessageChannelHandler) ContainerServiceImp {
 	return ContainerServiceImp{
-		HealthHandler:  healthHandler,
-		ProductHandler: productHandler,
+		HealthHandler:         healthHandler,
+		MessageChannelHandler: messageChannelHandler,
 	}
 }

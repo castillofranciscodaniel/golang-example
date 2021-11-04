@@ -23,9 +23,9 @@ func TestEndpointsWithoutPointer(t *testing.T) {
 		wantCode int
 		wantBody string
 	}{
-		"POST /modifyProductById": {
+		"POST /message": {
 			method: http.MethodPost,
-			path:   "/modifyProductById",
+			path:   "/message",
 			body:   `{"name":"Skittles","price":1.99}`,
 			header: map[string][]string{
 				"Content-Type": {"application/json"},
@@ -62,15 +62,15 @@ func TestEndpointsWithPointer(t *testing.T) {
 		wantCode int
 		wantBody string
 	}{
-		"POST /modifyProductById/pointer": {
+		"GET /message": {
 			method: http.MethodPost,
-			path:   "/modifyProductById/pointer",
-			body:   `{"name":"Skittles","price":1.99}`,
+			path:   "/message",
+			//body:   `{"name":"Skittles","price":1.99}`,
 			header: map[string][]string{
 				"Content-Type": {"application/json"},
 			},
 			wantCode: http.StatusCreated,
-			wantBody: `{"id":2,"name":"Agua","price":50}`,
+			wantBody: `[{"id":2,"name":"Agua","price":50}]`,
 		},
 	}
 

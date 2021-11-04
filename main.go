@@ -2,10 +2,13 @@ package main
 
 import (
 	"bitbucket.org/chattigodev/chattigo-golang-library/spring-cloud-config"
+	"encoding/json"
 	"github.com/castillofranciscodaniel/golang-example/config"
+	"github.com/castillofranciscodaniel/golang-example/pkg/dto"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
+	"github.com/reactivex/rxgo/v2"
 	"log"
 	"net/http"
 	"os"
@@ -21,6 +24,7 @@ func init() {
 	spring_cloud_config.LoadConfiguration(os.Getenv("SPRING_CLOUD_CONFIG_URI"), os.Getenv("APP_NAME"), os.Getenv("SPRING_PROFILES_ACTIVE"))
 	container := InitializeServer()
 	Route(container)
+	test()
 }
 
 func main() {
@@ -33,13 +37,35 @@ func Route(container config.ContainerServiceImp) *chi.Mux {
 	Routes.Use(middleware.RealIP)
 	Routes.Use(middleware.Logger)
 	Routes.Use(middleware.Recoverer)
+	Routes.Mount("/debug", middleware.Profiler())
 
 	Routes.Get("/health", container.HealthHandler.Health)
 	Routes.Get("/metrics", promhttp.Handler().ServeHTTP)
-	Routes.Post("/modifyProductById/pointer", container.ProductHandler.HandlerProductByIDPointer)
+	Routes.Post("/message", container.MessageChannelHandler.SaveMessageChannel)
 
-	Routes.Post("/modifyProductById", container.ProductHandler.HandlerProductByID)
+	Routes.Get("/message", container.MessageChannelHandler.GetMessageChannel)
 
 	return Routes
 
+}
+
+func test() {
+	//messageMarshall()
+	messageRx()
+}
+
+func messageMarshall() {
+	messageChannel := dto.MessageChannel{}
+	bytes := []byte(`{"id":2,"name":"Agua","price":50}`)
+	err := json.Unmarshal(bytes, &messageChannel)
+	if err != nil {
+
+		return
+	}
+
+}
+
+func messageRx() {
+	messageChannel := dto.MessageChannel{}
+	rxgo.Just(messageChannel)().Observe()
 }
