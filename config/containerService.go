@@ -3,7 +3,6 @@ package config
 import (
 	"github.com/castillofranciscodaniel/golang-example/pkg/handler"
 	"github.com/go-resty/resty/v2"
-	jsoniter "github.com/json-iterator/go"
 )
 
 type ContainerService struct {
@@ -24,6 +23,4 @@ func NewContainerServiceImp(restyClient *resty.Client, healthHandler handler.Hea
 
 func configRestyClient(restyClient *resty.Client) {
 	restyClient.SetDoNotParseResponse(true)
-	restyClient.JSONMarshal = jsoniter.Marshal
-	restyClient.JSONUnmarshal = jsoniter.Unmarshal
 }

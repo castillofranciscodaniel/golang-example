@@ -42,8 +42,6 @@ func (m *MessageChannelClientImpl) SaveMessageChannel(ctx context.Context, messa
 		Msisdn(messageChannel.Msisdn).
 		Msgf("url: %v. %v", m.url, utils.InitStr)
 
-	var message dto.MessageChannel
-
 	response, err := m.restyClient.R().
 		SetBody(messageChannel).
 		Post(m.url)
@@ -60,6 +58,7 @@ func (m *MessageChannelClientImpl) SaveMessageChannel(ctx context.Context, messa
 		return rxgo.Just(err)()
 	}
 
+	var message dto.MessageChannel
 	return m.deserializerService.BodyFromClient(ctxString, response.RawResponse, &message).FlatMap(func(item rxgo.Item) rxgo.Observable {
 		if item.Error() {
 			log.GetInstance().Error().

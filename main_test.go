@@ -10,7 +10,7 @@ import (
 	"testing"
 )
 
-func TestEndpointsWithoutPointer(t *testing.T) {
+func TestEndpointsRestyPost(t *testing.T) {
 	r := Routes
 	ts := httptest.NewServer(r)
 	defer ts.Close()
@@ -26,12 +26,12 @@ func TestEndpointsWithoutPointer(t *testing.T) {
 		"POST /message": {
 			method: http.MethodPost,
 			path:   "/message",
-			body:   `{"name":"Skittles","price":1.99}`,
+			body:   `"{did":"holi","msisdn":"5491159513122"}`,
 			header: map[string][]string{
 				"Content-Type": {"application/json"},
 			},
 			wantCode: http.StatusCreated,
-			wantBody: `{"id":2,"name":"Agua","price":50}`,
+			wantBody: `{"did":"holi","msisdn":"5491159513122"}`,
 		},
 	}
 
@@ -49,7 +49,7 @@ func TestEndpointsWithoutPointer(t *testing.T) {
 	}
 }
 
-func TestEndpointsWithPointer(t *testing.T) {
+func TestEndpointsRestyGet(t *testing.T) {
 	r := Routes
 	ts := httptest.NewServer(r)
 	defer ts.Close()
@@ -70,12 +70,12 @@ func TestEndpointsWithPointer(t *testing.T) {
 				"Content-Type": {"application/json"},
 			},
 			wantCode: http.StatusCreated,
-			wantBody: `[{"id":2,"name":"Agua","price":50}]`,
+			wantBody: `[{"did":"edit did","msisdn":"5491159513122"},{"did":"edit did","msisdn":"5491159513122"}]`,
 		},
 	}
 
 	for name, test := range testcases {
-		for i := 0; i < 1000; i++ {
+		for i := 0; i < 1; i++ {
 			t.Run(name, func(t *testing.T) {
 				body := bytes.NewReader([]byte(test.body))
 				gotResponse, gotBody := testRequest(t, ts, test.method, test.path, body, test.header)
