@@ -8,24 +8,24 @@ package main
 
 import (
 	service2 "bitbucket.org/chattigodev/chattigo-golang-library/pkg/deserializer"
-	"bitbucket.org/chattigodev/chattigo-golang-library/pkg/http"
 	"bitbucket.org/chattigodev/chattigo-golang-library/pkg/serializer"
 	"github.com/castillofranciscodaniel/golang-example/config"
 	"github.com/castillofranciscodaniel/golang-example/pkg/client"
 	"github.com/castillofranciscodaniel/golang-example/pkg/handler"
 	service3 "github.com/castillofranciscodaniel/golang-example/pkg/service"
+	"github.com/go-resty/resty/v2"
 )
 
 // Injectors from wire.go:
 
-func InitializeServer() config.ContainerServiceImp {
+func InitializeServer() config.ContainerService {
+	restyClient := resty.New()
 	serializerService := service.NewSerializerServiceImpl()
 	deserializerService := service2.NewDeserializerServiceImpl()
-	webClient := http.NewWebClientImpl(deserializerService)
-	messageChannelClient := client.NewMessageChannelClientImpl(webClient)
+	messageChannelClient := client.NewMessageChannelClientImpl(restyClient, deserializerService)
 	messageChannelService := service3.NewMessageChannelServiceIml(messageChannelClient)
 	healthHandler := handler.NewHealthHandler(serializerService, messageChannelService)
 	messageChannelHandler := handler.NewMessageChannelHandler(serializerService, deserializerService, messageChannelService)
-	containerServiceImp := config.NewContainerServiceImp(healthHandler, messageChannelHandler)
-	return containerServiceImp
+	containerService := config.NewContainerServiceImp(restyClient, healthHandler, messageChannelHandler)
+	return containerService
 }

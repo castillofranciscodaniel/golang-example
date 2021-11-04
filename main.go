@@ -1,7 +1,9 @@
 package main
 
 import (
+	"bitbucket.org/chattigodev/chattigo-golang-library/pkg/utils"
 	"bitbucket.org/chattigodev/chattigo-golang-library/spring-cloud-config"
+	"bitbucket.org/chattigodev/chattigo-golang-logging-library/pkg/log"
 	"encoding/json"
 	"fmt"
 	"github.com/castillofranciscodaniel/golang-example/config"
@@ -10,7 +12,6 @@ import (
 	"github.com/go-chi/chi/v5/middleware"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"github.com/reactivex/rxgo/v2"
-	"log"
 	"net/http"
 	"os"
 )
@@ -29,10 +30,12 @@ func init() {
 }
 
 func main() {
-	log.Fatal(http.ListenAndServe(":3000", Routes))
+	log.GetInstance().Error().Err(http.ListenAndServe(":3000", Routes)).Msg(utils.EndExceptionStr)
 }
 
-func Route(container config.ContainerServiceImp) *chi.Mux {
+func Route(container config.ContainerService) *chi.Mux {
+	log.GetInstance().Init("bff-chattigo-webchat")
+
 	Routes.Use(middleware.AllowContentType("application/json"))
 	Routes.Use(middleware.RequestID)
 	Routes.Use(middleware.RealIP)

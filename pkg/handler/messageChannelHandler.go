@@ -76,5 +76,5 @@ func (m *MessageChannelHandler) GetMessageChannel(w http.ResponseWriter, r *http
 		return rxgo.Just(item.V)()
 	})
 
-	m.serializerService.ServerResponse(w, result, http.StatusCreated)
+	m.serializerService.ServerResponse(w, result.First(), http.StatusOK)
 }
